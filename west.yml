@@ -191,7 +191,7 @@ manifest:
         - ant
     # GL.iNET repositories.
     - name: gl-dev-board-over-thread
-      repo-path: gl-inet/gl-thread-dev-board.git
+      repo-path: coyotegd/gl-thread-dev-board.git
       path: glinet/gl-dev-board-over-thread
       revision: main
       remote: github
