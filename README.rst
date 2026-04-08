@@ -25,6 +25,27 @@ firmware without depending on GL-iNet's servers, the manifest was
 patched on the ``v2.2.0-glinet`` branch to point that module at the
 companion fork ``coyotegd/gl-thread-dev-board`` instead.
 
+What is west?
+*************
+
+``west`` is Nordic Semiconductor's official meta-tool for the nRF Connect SDK
+(and Zephyr RTOS).  Think of it as a combination of ``git submodules`` and a
+build-system front-end, but purpose-built for embedded multi-repo projects.
+
+The nRF Connect SDK is not a single repository — it spans roughly 45
+separate repos (Zephyr kernel, NCS libraries, MCUboot, TF-M, toolchain
+wrappers, board definitions, etc.).  ``west`` reads a single YAML manifest
+(``west.yml`` in *this* repo) that pins the exact commit of every one of
+those repos, then clones and arranges them into a single workspace directory
+tree.  This guarantees a fully reproducible build: anyone running
+``west init`` + ``west update`` against the same manifest commit gets
+identical source code.
+
+``west build`` is then a thin wrapper around CMake/ninja that knows how to
+locate the Zephyr CMake package, set toolchain variables, and produce the
+signed MCUboot-compatible ``app_update.bin`` that can be OTA-flashed via
+``mcumgr``.
+
 How it is used
 **************
 
